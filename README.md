@@ -1,16 +1,18 @@
 # Simple python statistic module
 
 ## Available modules
-- mva:  simple moving average
-- ema:  exponential moving average
-- rsi:  relative strength index
-- macd: moving average convergence divergence
-- bollinger: bollinger band
-- extrema: local max/min search
+- mva.MVA:  simple moving average
+- ema.EMA:  exponential moving average
+- rsi.RSI:  relative strength index
+- macd.MACD: moving average convergence divergence
+- bollinger.Bollinger: bollinger band
+- extrema.search: local max/min search
 
 ## Basic Usage
-`
-from pystats.mva import MVA
-mva = MVA()
-`
+- MVA
+> from pystats.mva import MVA
+> mva = MVA()
+> for price in range(20):
+>   mva.update(price)
+EMA,RSI,MACD,Bollinger can be used in same manner.
 
