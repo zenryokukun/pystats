@@ -9,7 +9,8 @@
 - extrema: local max/min search
 
 ## Basic Usage
-"""
-from pystats.extrema import search
-local_max,local_min = search(some_x,some_y,ratio)
-"""
+`
+from pystats.mva import MVA
+mva = MVA()
+`
+
