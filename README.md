@@ -10,10 +10,12 @@
 
 ## Basic Usage
 - MVA
-> from pystats.mva import MVA  
-> mva = MVA()  
-> for price in range(20):  
->   mva.update(price)  
+```python
+from pystats.mva import MVA
+mva = MVA()
+for price in some_prices_list:
+  mva.update(price)
+```
 
 EMA,RSI,MACD,Bollinger can be used in same manner. 
 
