@@ -42,7 +42,12 @@ class Extrema:
         Returns:
             int,Number,int: 直近time、直近val,now_time_indexとの差
         """
+
         last_t, last_v = self.last
+
+        if last_t is None:
+            return last_t, last_v, None
+
         diff_t = now_time_index - last_t
         return last_t, last_v, diff_t
 
@@ -192,7 +197,7 @@ if __name__ == "__main__":
     with open("4h15000.json") as f:
         data = json.load(f)
         data["index"] = [i for i in range(len(data["time"]))]
-    start = 14800
+    start = 14990
     x = data["index"][start:]
     y = data["c"][start:]
     mx, mn = search(x, y, 0.003)
