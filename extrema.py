@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 class Extrema:
     def __init__(self):
         """
-        高値と底値情報。val(float | int)は価格、time(int)はunix timestampを想定。
+        高値と底値情報。val(float | int)は価格、time(int)は配列のindexを想定。
         timeの型は他でも良いが、数字であることを想定。
         """
         self.val = []
@@ -26,10 +26,37 @@ class Extrema:
         価格と時間を追加する。
         Args:
             val (float | int):価格
-            utime (any): 時間。unix timestampを想定
+            utime (any): 時間。配列のindexを想定
         """
         self.val.append(val)
         self.time.append(utime)
+
+    def last_inf(self, now_time_index):
+        """
+        直近のtimeとval、time_indexと直近のtimeの差を返す
+        timeには何らかの配列のindexが入っている必要がある。
+
+        Args:
+            now_time_index (int): 現在の時間をindex表記したものを想定
+
+        Returns:
+            int,Number,int: 直近time、直近val,now_time_indexとの差
+        """
+        last_t, last_v = self.last
+        diff_t = now_time_index - last_t
+        return last_t, last_v, diff_t
+
+    @property
+    def last(self):
+        """
+        直近のtime,valを返す。いずれかが空の場合はNoneを返す
+
+        Returns:
+            tuple(int|None,Number|None): 直近のtime,val
+        """
+        if len(self.val) == 0 or len(self.time) == 0:
+            return None, None
+        return self.time[-1], self.val[-1]
 
 
 def search(x, y, ratio):
@@ -164,8 +191,11 @@ if __name__ == "__main__":
     import json
     with open("4h15000.json") as f:
         data = json.load(f)
-    start = 14500
-    x = data["time"][start:]
+        data["index"] = [i for i in range(len(data["time"]))]
+    start = 14800
+    x = data["index"][start:]
     y = data["c"][start:]
     mx, mn = search(x, y, 0.003)
+    t, v, d = mx.last_inf(15000)
+    print(t, v, d)
     show(x, y, mx, mn)
